@@ -1,26 +1,24 @@
-﻿Version=6.3
-NumberOfModules=6
-Module1=Font
-Module2=Language
-Module3=Traps
-Module4=AllinOne
-Module5=About
-Module6=Starter
-Build1=Default,com.htetznaing.cocmmtool
-ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~'AdMob~\n~AddApplicationText(~\n~<meta-data android:name="com.google.android.gms.version"~\n~  android:value="@integer/google_play_services_version"/>~\n~<activity android:name="com.google.android.gms.ads.AdActivity"~\n~  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>~\n~~\n~)~\n~'End of AdMob~\n~
+﻿Version=6.5
+NumberOfModules=4
+Module1=Language
+Module2=Font
+Module3=AllinOne
+Module4=About
+Build1=Default,com.htetznaing.cocmmtoolnewv
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~'************ Google Play Services Base ************~\n~AddApplicationText(~\n~   <activity android:name="com.google.android.gms.common.api.GoogleApiActivity"~\n~  android:theme="@android:style/Theme.Translucent.NoTitleBar"~\n~  android:exported="false"/>~\n~    <meta-data~\n~  android:name="com.google.android.gms.version"~\n~  android:value="@integer/google_play_services_version" />~\n~)~\n~~\n~'************ Google Play Services Base (end) ************~\n~~\n~'************ Firebase Ads ************~\n~AddApplicationText(~\n~  <activity~\n~  android:name="com.google.android.gms.ads.AdActivity"~\n~  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"~\n~  android:theme="@android:style/Theme.Translucent" />~\n~  <activity android:name="com.google.android.gms.ads.purchase.InAppPurchaseActivity"~\n~  android:theme="@style/Theme.IAPTheme"/>~\n~)~\n~'************ Firebase Ads (end) ************
 IconFile=
-NumberOfFiles=26
+NumberOfFiles=23
 File1=a.jpg
 File2=about.png
 File3=all.png
 File4=allinone.png
 File5=bg.jpg
 File6=bgtwo.jpg
-File7=buildings.csv
-File8=DroidSans.ttf
-File9=DroidSans-Bold.ttf
-File10=font.png
-File11=icon.png
+File7=DroidSans.ttf
+File8=fb.png
+File9=font.png
+File10=icon.png
+File11=icon256.png
 File12=install.png
 File13=language.png
 File14=mmlg.png
@@ -28,33 +26,28 @@ File15=MyanmarPaOh.ttf
 File16=restore.png
 File17=root.png
 File18=share.png
-File19=showtraps.png
-File20=sp.html
-File21=texts.csv
-File22=theme.png
-File23=trap.png
-File24=traps.csv
-File25=Utexts.csv
-File26=zawgyi.png
-NumberOfLibraries=9
+File19=sp.html
+File20=texts.csv
+File21=theme.png
+File22=Utexts.csv
+File23=zawgyi.png
+NumberOfLibraries=8
 Library1=core
 Library2=mlfiles
 Library3=clipboard
-Library4=admob
-Library5=mwadmobinterstitial2 (2)
-Library6=phone
-Library7=stringutils
-Library8=id
-Library9=xmllayoutbuilder
+Library4=phone
+Library5=stringutils
+Library6=id
+Library7=xmllayoutbuilder
+Library8=firebaseadmob
 @EndOfDesignText@
 #Region  Project Attributes 
-	#ApplicationLabel: Myanmar Font and Language 4 COC
+	#ApplicationLabel: 4Coc Myanmar Font and Language
 	#VersionCode: 1
-	#VersionName: 1.0
+	#VersionName: 1.6
 	'SupportedOrientations possible values: unspecified, landscape or portrait.
 	#SupportedOrientations: unspecified
 	#CanInstallToExternalStorage: False
-	#AdditionalRes: D:\Android\android-sdk\extras\google\google-play-services\libproject\google-play-services_lib\res, com.google.android.gms
 #End Region
 
 #Region  Activity Attributes 
@@ -71,14 +64,14 @@ Dim Theme_Value As Int
 End Sub
 
 Sub Globals
-Dim b1,b2,b3,b4,b5 As Button
-Dim b1bg,b2bg,b3bg,b4bg,b5bg As BitmapDrawable
+Dim b1,b2,b3,b5 As Button
+Dim b1bg,b2bg,b3bg,b5bg As BitmapDrawable
 Dim lb1 As Label
 Dim ml As MLfiles
 Dim abg As BitmapDrawable
 Dim lb As Label
 Dim banner As AdView
-Dim interstitial As mwAdmobInterstitial
+Dim interstitial As InterstitialAd
 Dim p As Phone
 Dim wv As WebView
 Dim bstart As Button
@@ -87,21 +80,23 @@ Dim res As XmlLayoutBuilder
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
-	If p.SdkVersion > 19 Then
-	interstitial.Initialize("interstitial","ca-app-pub-4173348573252986/6359500554")
+	ml.GetRoot
+	Activity.Title = "COC MM Tool"
+	
+	interstitial.Initialize("interstitial","ca-app-pub-4173348573252986/3801251754")
 	interstitial.LoadAd
 	
-	banner.Initialize("banner","ca-app-pub-4173348573252986/9452567751")
+	banner.Initialize("banner","ca-app-pub-4173348573252986/8371052153")
 	banner.LoadAd
-	Activity.AddView(banner,0%x,0%y,100%x,10%y)
+	Activity.AddView(banner,0%x,0%y,100%x,50dip)
+	
 	t.Initialize("t",500)
 	t.Enabled = False
-	t1.Initialize("t1",15000)
+	t1.Initialize("t1",30000)
 	t1.Enabled = True
-	End If
 	
 	lb.Initialize("lb")
-	lb.Text = "Developed By Khun Htetz Naing"
+	lb.Text = "Powered By Myanmar Android Apps"
 	lb.Gravity = Gravity.CENTER
 	Activity.AddView(lb,0%x,95%y,100%x,5%y)
 	
@@ -110,7 +105,6 @@ Sub Activity_Create(FirstTime As Boolean)
 	b1bg.Initialize(LoadBitmap(File.DirAssets,"root.png"))
 	b2bg.Initialize(LoadBitmap(File.DirAssets,"zawgyi.png"))
 	b3bg.Initialize(LoadBitmap(File.DirAssets,"mmlg.png"))
-	b4bg.Initialize(LoadBitmap(File.DirAssets,"trap.png"))
 	b5bg.Initialize(LoadBitmap(File.DirAssets,"all.png"))
 	b1.Initialize("b1")
 	b1.Background = b1bg
@@ -123,17 +117,13 @@ Sub Activity_Create(FirstTime As Boolean)
 	b3.Initialize("b3")
 	b3.Background = b3bg
 	
-	b4.Initialize("b4")
-	b4.Background = b4bg
-	
 	b5.Initialize("b5")
 	b5.Background = b5bg
 	
 	Activity.addview(b1,30%x,10%y,40%x,10%y)
 	Activity.AddView(b2,10%x,(b1.Top+b1.Height)+5%y,33%x,10%y)
 	Activity.AddView(b3,54%x,(b1.Top+b1.Height)+5%y,33%x,10%y)
-	Activity.AddView(b4,10%x,(b3.Top+b3.Height)+5%y,33%x,10%y)
-	Activity.AddView(b5,54%x,(b3.Top+b3.Height)+5%y,33%x,10%y)
+	Activity.AddView(b5,30%x,(b3.Top+b3.Height)+5%y,40%x,10%y)
 	
 	Activity.AddView(lb1,30%x,(b1.Top+b1.Height),40%x,5%y)
 	lb1.Gravity = Gravity.CENTER
@@ -158,7 +148,6 @@ If FirstTime Then
 	b1.Visible = False
 	b2.Visible = False
 	b3.Visible = False
-	b4.Visible = False
 	b5.Visible = False
 	End If
 End Sub
@@ -167,31 +156,39 @@ Sub lb_Click
 	If p.SdkVersion > 19 Then
 		t.Enabled = True
 	End If
-	Dim ii As PhoneIntents
-	StartActivity(ii.OpenBrowser("https://www.fb.com/Khun.Htetz.Naing"))
+	Try
+ 
+		Dim Facebook As Intent
+ 
+		Facebook.Initialize(Facebook.ACTION_VIEW, "fb://page/627699334104477")
+		StartActivity(Facebook)
+ 
+	Catch
+ 
+		Dim i As Intent
+		i.Initialize(i.ACTION_VIEW, "https://m.facebook.com/MmFreeAndroidApps")
+ 
+		StartActivity(i)
+ 
+	End Try
 End Sub
 
 Sub bstart_Click
-	If p.SdkVersion > 19 Then
 		t.Enabled = True
-	End If
 	wv.Visible = False
 	b1.Visible = True
 	b2.Visible = True
 	b3.Visible = True
-	b4.Visible = True
 	b5.Visible = True
 	bstart.Visible = False
 End Sub
 
 Sub share_Click
-	If p.SdkVersion > 19 Then
 		t.Enabled = True
-	End If
 Dim ShareIt As Intent
 Dim copy As BClipboard
 copy.clrText
-copy.setText("COC မွာျမန္မာစာေရးခ်င္ဖတ္ခ်င္ပါသလား? ၊ COC ကိုျမန္မာဘာသာျဖင့္ အသုံးျပဳခ်င္ပါသလား? ရန္သူစခန္းေတြမွာသြားတိုက္တဲ့အခါ ေထာင္ေခ်ာက္ေတြ ဗုံးေတြ၊ Teslas ႀကိဳတင္ေတြ႕ျမင္ခ်င္ပါသလား? ဒါေတြအားလုံးကို #COC_Myanmar_Tool တစ္ခုတည္းနဲ႔တင္လုပ္ေဆာင္နိုင္ပါၿပီ။ Root ေဖာက္ထားတဲ့မည္သည့္ Android ဖုန္းမဆိုအထက္ပါလုပ္ေဆာင္ခ်က္ေတြကို #COC_Myanmar_Tool ကထည့္သြင္းေပးနိုင္ပါတယ္။ Play Store ကေနအလြယ္တကူေဒါင္းယူရရွိနိုင္ပါတယ္။ Download Free at Google Play Store: https://play.google.com/store/apps/details?id=com.htetznaing.cocmmtool သို႔မဟုတ္မိမိတို႔ဖုန္းထဲက App Store တခုခုကေနလည္း ေဒါင္းနိုင္ပါတယ္။ ေဒါင္းဖို႔အဆင္မေျပသူမ်ားကေတာ့ ဒီမွာ သြားေဒါင္းနိုင္ပါတယ္ > http://ht3tzn4ing.blogspot.com/2016/12/COCMyanmarTool.html <")
+copy.setText("COC မွာျမန္မာစာေရးခ်င္ဖတ္ခ်င္ပါသလား? ၊ COC ကိုျမန္မာဘာသာျဖင့္ အသုံးျပဳခ်င္ပါသလား? ရန္သူစခန္းေတြမွာသြားတိုက္တဲ့အခါ ေထာင္ေခ်ာက္ေတြ ဗုံးေတြ၊ Teslas ႀကိဳတင္ေတြ႕ျမင္ခ်င္ပါသလား? ဒါေတြအားလုံးကို #COC_Myanmar_Tool တစ္ခုတည္းနဲ႔တင္လုပ္ေဆာင္နိုင္ပါၿပီ။ Root ေဖာက္ထားတဲ့မည္သည့္ Android ဖုန္းမဆိုအထက္ပါလုပ္ေဆာင္ခ်က္ေတြကို #COC_Myanmar_Tool ကထည့္သြင္းေပးနိုင္ပါတယ္။ Play Store ကေနအလြယ္တကူေဒါင္းယူရရွိနိုင္ပါတယ္။ Download Free at Google Play Store: https://play.google.com/store/apps/details?id=com.htetznaing.cocmmtool2 သို႔မဟုတ္မိမိတို႔ဖုန္းထဲက App Store တခုခုကေနလည္း ေဒါင္းနိုင္ပါတယ္။ ေဒါင္းဖို႔အဆင္မေျပသူမ်ားကေတာ့ ဒီမွာ သြားေဒါင္းနိုင္ပါတယ္ > http://www.htetznaing.com/COCMyanmarTool <")
     ShareIt.Initialize (ShareIt.ACTION_SEND,"")
     ShareIt.SetType ("text/plain")
     ShareIt.PutExtra ("android.intent.extra.TEXT",copy.getText)
@@ -201,9 +198,7 @@ StartActivity (ShareIt)
 End Sub
 
 Sub ct_Click
-	If p.SdkVersion > 19 Then
 		t.Enabled = True
-	End If
 	Dim lis As List
 	Dim idd_int As Int
 	Dim idd As id
@@ -268,35 +263,26 @@ public void _onCreate() {
 #end if
 
 Sub ab_Click
-	If p.SdkVersion > 19 Then
 		t.Enabled = True
-	End If
 	StartActivity(About)
 End Sub
+
 Sub t_Tick
-If	interstitial.Status=interstitial.Status_AdReadyToShow Then
-	interstitial.Show
-	End If
-If interstitial.Status=interstitial.Status_Dismissed Then
-	interstitial.Show	
-End If
+If	interstitial.Ready Then interstitial.Show Else interstitial.LoadAd
 t.Enabled = False
 End Sub
 
 Sub t1_Tick
-If	interstitial.Status=interstitial.Status_AdReadyToShow Then
-	interstitial.Show
-	End If
-If interstitial.Status=interstitial.Status_Dismissed Then
-	interstitial.Show	
-End If
-t1.Enabled = False
+If	interstitial.Ready Then interstitial.Show Else interstitial.LoadAd
+'t1.Enabled = False
+End Sub
+
+Sub interstitial_AdClosed
+	interstitial.LoadAd
 End Sub
 
 Sub b1_Click
-	If p.SdkVersion > 19 Then
 		t.Enabled = True
-	End If
 	ml.GetRoot
 	If ml.HaveRoot Then
 		Msgbox("Congratulations!" & CRLF & "Your Device is Rooted","Attention!")
@@ -306,31 +292,35 @@ Sub b1_Click
 End Sub
 
 Sub b2_Click
-	If p.SdkVersion > 19 Then
 		t.Enabled = True
-	End If
+	ml.GetRoot
+	If ml.HaveRoot Then
 	StartActivity(Font)
+	Else
+			Msgbox("Error! Your Device is" & CRLF & "not have Root Access","Attention!")
+	End If
 End Sub
 
 Sub b3_Click
-	If p.SdkVersion > 19 Then
 		t.Enabled = True
-	End If
+ml.GetRoot
+	If ml.HaveRoot Then
 	StartActivity(Language)
-End Sub
-
-Sub b4_Click
-	If p.SdkVersion > 19 Then
-		t.Enabled = True
-	End If
-	StartActivity(Traps)
+	Else
+			Msgbox("Error! Your Device is" & CRLF & "not have Root Access","Attention!")
+			End If
 End Sub
 
 Sub b5_CLick
 	If p.SdkVersion > 19 Then
 		t.Enabled = True
 	End If
+	ml.GetRoot
+	If ml.HaveRoot Then
 	StartActivity(AllinOne)
+	Else
+			Msgbox("Error! Your Device is" & CRLF & "not have Root Access","Attention!")
+			End If
 End Sub
 
 Sub Activity_Resume
@@ -339,4 +329,34 @@ End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
 
+End Sub
+
+Sub Activity_KeyPress (KeyCode As Int) As Boolean
+	Dim Answ As Int
+	If KeyCode = KeyCodes.KEYCODE_BACK Then
+		Answ = Msgbox2("If you want to get new updates on  Facebook? Please Like " &CRLF & "Myanmar Android Apps Page!","Attention!", "Yes", "", "No",LoadBitmap(File.DirAssets,"fb.png" ))
+		If Answ = DialogResponse.NEGATIVE Then
+				t.Enabled = True
+			Return False
+		End If
+	End If
+	If Answ = DialogResponse.POSITIVE Then
+			t.Enabled = True
+		Try
+ 
+			Dim Facebook As Intent
+ 
+			Facebook.Initialize(Facebook.ACTION_VIEW, "fb://page/627699334104477")
+			StartActivity(Facebook)
+ 
+		Catch
+ 
+			Dim i As Intent
+			i.Initialize(i.ACTION_VIEW, "https://m.facebook.com/MmFreeAndroidApps")
+ 
+			StartActivity(i)
+ 
+		End Try
+		Return False
+	End If
 End Sub

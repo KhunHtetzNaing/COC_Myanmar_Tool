@@ -1,5 +1,5 @@
 ﻿Type=Activity
-Version=6.3
+Version=6.5
 ModulesStructureVersion=1
 B4A=true
 @EndOfDesignText@
@@ -22,27 +22,27 @@ Dim imv As ImageView
 Dim bg As BitmapDrawable
 Dim banner As AdView
 Dim p As Phone
-Dim interstitial As mwAdmobInterstitial
+Dim interstitial As InterstitialAd
 Dim abg As BitmapDrawable
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
-		abg.Initialize(LoadBitmap(File.DirAssets,"bg.jpg"))
+	Activity.Title = "All In One"
+	p.SetScreenOrientation(1)
+	abg.Initialize(LoadBitmap(File.DirAssets,"bg.jpg"))
 	Activity.Background = abg
 	
-		If p.SdkVersion > 19 Then
-	interstitial.Initialize("interstitial","ca-app-pub-4173348573252986/6359500554")
+	interstitial.Initialize("interstitial","ca-app-pub-4173348573252986/3801251754")
 	interstitial.LoadAd
 	
-	banner.Initialize("banner","ca-app-pub-4173348573252986/3406034153")
+	banner.Initialize("banner","ca-app-pub-4173348573252986/8371052153")
 	banner.LoadAd
-	Activity.AddView(banner,0%x,90%y,100%x,10%y)
+	Activity.AddView(banner,0%x,100%y - 50dip,100%x,50dip)
 	
 	t.Initialize("t",500)
 	t.Enabled = False
-	t1.Initialize("t1",15000)
+	t1.Initialize("t1",30000)
 	t1.Enabled = True
-	End If
 	
 	bg.Initialize(LoadBitmap(File.DirAssets,"allinone.png"))
 	imv.Initialize("imv")
@@ -64,25 +64,21 @@ Activity.AddMenuItem3("About App","ab",LoadBitmap(File.DirAssets,"about.png"),Tr
 End Sub
 
 Sub share_Click
-	If p.SdkVersion > 19 Then
 		t.Enabled = True
-	End If
-Dim ShareIt As Intent
-Dim copy As BClipboard
-copy.clrText
-copy.setText("COC မွာျမန္မာစာေရးခ်င္ဖတ္ခ်င္ပါသလား? ၊ COC ကိုျမန္မာဘာသာျဖင့္ အသုံးျပဳခ်င္ပါသလား? ရန္သူစခန္းေတြမွာသြားတိုက္တဲ့အခါ ေထာင္ေခ်ာက္ေတြ ဗုံးေတြ၊ Teslas ႀကိဳတင္ေတြ႕ျမင္ခ်င္ပါသလား? ဒါေတြအားလုံးကို #COC_Myanmar_Tool တစ္ခုတည္းနဲ႔တင္လုပ္ေဆာင္နိုင္ပါၿပီ။ Root ေဖာက္ထားတဲ့မည္သည့္ Android ဖုန္းမဆိုအထက္ပါလုပ္ေဆာင္ခ်က္ေတြကို #COC_Myanmar_Tool ကထည့္သြင္းေပးနိုင္ပါတယ္။ Play Store ကေနအလြယ္တကူေဒါင္းယူရရွိနိုင္ပါတယ္။ Download Free at Google Play Store: https://play.google.com/store/apps/details?id=com.htetznaing.cocmmtool သို႔မဟုတ္မိမိတို႔ဖုန္းထဲက App Store တခုခုကေနလည္း ေဒါင္းနိုင္ပါတယ္။ ေဒါင္းဖို႔အဆင္မေျပသူမ်ားကေတာ့ ဒီမွာ သြားေဒါင္းနိုင္ပါတယ္ > http://ht3tzn4ing.blogspot.com/2016/12/COCMyanmarTool.html <")
-    ShareIt.Initialize (ShareIt.ACTION_SEND,"")
-    ShareIt.SetType ("text/plain")
-    ShareIt.PutExtra ("android.intent.extra.TEXT",copy.getText)
-    ShareIt.PutExtra ("android.intent.extra.SUBJECT","#COC_Myanmar_Tool")
-    ShareIt.WrapAsIntentChooser("Share App Via...")
-StartActivity (ShareIt)
+	Dim ShareIt As Intent
+	Dim copy As BClipboard
+	copy.clrText
+	copy.setText("COC မွာျမန္မာစာေရးခ်င္ဖတ္ခ်င္ပါသလား? ၊ COC ကိုျမန္မာဘာသာျဖင့္ အသုံးျပဳခ်င္ပါသလား? ရန္သူစခန္းေတြမွာသြားတိုက္တဲ့အခါ ေထာင္ေခ်ာက္ေတြ ဗုံးေတြ၊ Teslas ႀကိဳတင္ေတြ႕ျမင္ခ်င္ပါသလား? ဒါေတြအားလုံးကို #COC_Myanmar_Tool တစ္ခုတည္းနဲ႔တင္လုပ္ေဆာင္နိုင္ပါၿပီ။ Root ေဖာက္ထားတဲ့မည္သည့္ Android ဖုန္းမဆိုအထက္ပါလုပ္ေဆာင္ခ်က္ေတြကို #COC_Myanmar_Tool ကထည့္သြင္းေပးနိုင္ပါတယ္။ Play Store ကေနအလြယ္တကူေဒါင္းယူရရွိနိုင္ပါတယ္။ Download Free at Google Play Store: https://play.google.com/store/apps/details?id=com.htetznaing.cocmmtool2 သို႔မဟုတ္မိမိတို႔ဖုန္းထဲက App Store တခုခုကေနလည္း ေဒါင္းနိုင္ပါတယ္။ ေဒါင္းဖို႔အဆင္မေျပသူမ်ားကေတာ့ ဒီမွာ သြားေဒါင္းနိုင္ပါတယ္ > http://www.htetznaing.com/COCMyanmarTool <")
+	ShareIt.Initialize (ShareIt.ACTION_SEND,"")
+	ShareIt.SetType ("text/plain")
+	ShareIt.PutExtra ("android.intent.extra.TEXT",copy.getText)
+	ShareIt.PutExtra ("android.intent.extra.SUBJECT","#COC_Myanmar_Tool")
+	ShareIt.WrapAsIntentChooser("Share App Via...")
+	StartActivity (ShareIt)
 End Sub
 
 Sub ct_Click
-	If p.SdkVersion > 19 Then
-		t.Enabled = True
-	End If
+t.Enabled = True
 	Dim lis As List
 	Dim idd_int As Int
 	Dim idd As id
@@ -147,36 +143,21 @@ public void _onCreate() {
 #end if
 
 Sub ab_Click
-	If p.SdkVersion > 19 Then
 		t.Enabled = True
-	End If
 	StartActivity(About)
 End Sub
 
 Sub t_Tick
-If	interstitial.Status=interstitial.Status_AdReadyToShow Then
-	interstitial.Show
-	End If
-If interstitial.Status=interstitial.Status_Dismissed Then
-	interstitial.Show	
-End If
+	If	interstitial.Ready Then interstitial.Show Else interstitial.LoadAd
 t.Enabled = False
 End Sub
 
 Sub t1_Tick
-If	interstitial.Status=interstitial.Status_AdReadyToShow Then
-	interstitial.Show
-	End If
-If interstitial.Status=interstitial.Status_Dismissed Then
-	interstitial.Show	
-End If
-t1.Enabled = False
+	If	interstitial.Ready Then interstitial.Show Else interstitial.LoadAd
 End Sub
 
 Sub b1_Click
-	If p.SdkVersion > 19 Then
 		t.Enabled = True
-	End If
 	Dim i As Int
 	i = Msgbox2("What do you want to Install?","Attention!","Zawgyi","","Unicode",Null)
 	If i = DialogResponse.POSITIVE Then
@@ -187,47 +168,34 @@ Sub b1_Click
 	File.Copy(File.DirAssets,"DroidSans.ttf",File.DirRootExternal,"DroidSans.ttf")
 	End If
 	
-	If File.Exists(File.DirRootExternal,"DroidSans-Bold.ttf") = False Then
-	File.Copy(File.DirAssets,"DroidSans-Bold.ttf",File.DirRootExternal,"DroidSans-Bold.ttf")
-	End If
-	
 	 If	File.Exists(File.DirRootExternal,"texts.csv") = False Then
 	File.Copy(File.DirAssets,"texts.csv",File.DirRootExternal,"texts.csv")
 	End If
 	
-	 If	File.Exists(File.DirRootExternal,"traps.csv") = False Then
-	File.Copy(File.DirAssets,"traps.csv",File.DirRootExternal,"traps.csv")
-	End If
-	
-	If File.Exists(File.DirRootExternal,"buildings.csv") = False Then
-	File.Copy(File.DirAssets,"buildings.csv",File.DirRootExternal,"buildings.csv")
-	End If
-	
 	'Backup
 	ml.RootCmd("mount -o rw,remount /system","",Null,Null,False)
-	ml.RootCmd("mount -o rw,remount /data","",Null,Null,False)
-	ml.mv("/system/fonts/DroidSans.ttf","/system/fonts/DroidSans.ttf.bak")
-	ml.mv("/system/fonts/DroidSans-Bold.ttf","/system/fonts/DroidSans-Bold.ttf.bak")
+			ml.RootCmd("mount -o rw,remount /data","",Null,Null,False)
+			ml.mv("/system/fonts/DroidSans.ttf","/system/fonts/DroidSans.ttf.bak")
+			ml.mv("/system/fonts/Roboto-Regular.ttf","/system/fonts/Roboto-Regular.ttf.bak")
+			ml.mv("/system/fonts/Roboto-Bold.ttf","/system/fonts/Roboto-Bold.ttf.bak")
+			ml.mv("/system/fonts/DroidSans-Bold.ttf","/system/fonts/DroidSans-Bold.ttf.bak")
 	
-	'Install
-	ml.RootCmd("cp -r "&File.DirRootExternal&"/DroidSans.ttf system/fonts/DroidSans.ttf","",Null,Null,False)
-	ml.RootCmd("cp -r "&File.DirRootExternal&"/DroidSans-Bold.ttf system/fonts/DroidSans-Bold.ttf","",Null,Null,False)
+			'Install
+			ml.RootCmd("cp -r "&File.DirRootExternal&"/DroidSans.ttf system/fonts/Roboto-Bold.ttf","",Null,Null,False)
+			ml.RootCmd("cp -r "&File.DirRootExternal&"/DroidSans.ttf system/fonts/Roboto-Regular.ttf","",Null,Null,False)
+			ml.RootCmd("cp -r "&File.DirRootExternal&"/DroidSans.ttf system/fonts/DroidSans.ttf","",Null,Null,False)
+			ml.RootCmd("cp -r "&File.DirRootExternal&"/DroidSans.ttf system/fonts/DroidSans-Bold.ttf","",Null,Null,False)
 	ml.RootCmd("cp -r "&File.DirRootExternal&"/texts.csv data/data/com.supercell.clashofclans/update/csv/texts.csv","",Null,Null,False)
-	ml.RootCmd("cp -r "&File.DirRootExternal&"/traps.csv data/data/com.supercell.clashofclans/update/logic/traps.csv","",Null,Null,False)
-	ml.RootCmd("cp -r "&File.DirRootExternal&"/buildings.csv data/data/com.supercell.clashofclans/update/logic/buildings.csv","",Null,Null,False)
 	
-	'Permission
-	ml.chmod("/system/fonts/DroidSans.ttf",644)
-	ml.chmod("/system/fonts/DroidSans.ttf",644)
+			'Permission
+			ml.chmod("/system/fonts/DroidSans.ttf",644)
+			ml.chmod("/system/fonts/DroidSans-Bold.ttf",644)
+			ml.chmod("/system/fonts/Roboto-Bold.ttf",644)
+			ml.chmod("/system/fonts/Roboto-Regular.ttf",644)
 	ml.chmod("/data/data/com.supercell.clashofclans/update/csv/texts.csv",666)
-	ml.chmod("/data/data/com.supercell.clashofclans/update/logic/traps.csv",666)
-	ml.chmod("/data/data/com.supercell.clashofclans/update/logic/buildings.csv",666)
 	
 	File.Delete(File.DirRootExternal,"DroidSans.ttf")
-	File.Delete(File.DirRootExternal,"DroidSans-Bold.ttf")
 	File.Delete(File.DirRootExternal,"texts.csv")
-	File.Delete(File.DirRootExternal,"traps.csv")
-	File.Delete(File.DirRootExternal,"buildings.csv")
 	
 	Msgbox("All Myanmar Font+Language+Traps installed!" & CRLF & "Now, Device will be Reboot","Completed")
 	ml.RootCmd("reboot","",Null,Null,False)
@@ -249,38 +217,30 @@ Sub b1_Click
 	File.Copy(File.DirAssets,"Utexts.csv",File.DirRootExternal,"Utexts.csv")
 	End If
 	
-	 If	File.Exists(File.DirRootExternal,"traps.csv") = False Then
-	File.Copy(File.DirAssets,"traps.csv",File.DirRootExternal,"traps.csv")
-	End If
-	
-	If File.Exists(File.DirRootExternal,"buildings.csv") = False Then
-	File.Copy(File.DirAssets,"buildings.csv",File.DirRootExternal,"buildings.csv")
-	End If
-	
 	'Backup
 	ml.RootCmd("mount -o rw,remount /system","",Null,Null,False)
-	ml.RootCmd("mount -o rw,remount /data","",Null,Null,False)
-	ml.mv("/system/fonts/DroidSans.ttf","/system/fonts/DroidSans.ttf.bak")
-	ml.mv("/system/fonts/DroidSans-Bold.ttf","/system/fonts/DroidSans-Bold.ttf.bak")
+			ml.RootCmd("mount -o rw,remount /data","",Null,Null,False)
+			ml.mv("/system/fonts/DroidSans.ttf","/system/fonts/DroidSans.ttf.bak")
+			ml.mv("/system/fonts/Roboto-Regular.ttf","/system/fonts/Roboto-Regular.ttf.bak")
+			ml.mv("/system/fonts/Roboto-Bold.ttf","/system/fonts/Roboto-Bold.ttf.bak")
+			ml.mv("/system/fonts/DroidSans-Bold.ttf","/system/fonts/DroidSans-Bold.ttf.bak")
 	
-	'Install
-	ml.RootCmd("cp -r "&File.DirRootExternal&"/MyanmarPaOh.ttf system/fonts/DroidSans.ttf","",Null,Null,False)
-	ml.RootCmd("cp -r "&File.DirRootExternal&"/MyanmarPaOh.ttf system/fonts/DroidSans-Bold.ttf","",Null,Null,False)
+			'Install
+			ml.RootCmd("cp -r "&File.DirRootExternal&"/MyanmarPaOh.ttf system/fonts/DroidSans.ttf","",Null,Null,False)
+			ml.RootCmd("cp -r "&File.DirRootExternal&"/MyanmarPaOh.ttf system/fonts/DroidSans-Bold.ttf","",Null,Null,False)
+			ml.RootCmd("cp -r "&File.DirRootExternal&"/MyanmarPaOh.ttf system/fonts/Roboto-Bold.ttf","",Null,Null,False)
+			ml.RootCmd("cp -r "&File.DirRootExternal&"/MyanmarPaOh.ttf system/fonts/Roboto-Regular.ttf","",Null,Null,False)
 	ml.RootCmd("cp -r "&File.DirRootExternal&"/Utexts.csv data/data/com.supercell.clashofclans/update/csv/texts.csv","",Null,Null,False)
-	ml.RootCmd("cp -r "&File.DirRootExternal&"/traps.csv data/data/com.supercell.clashofclans/update/logic/traps.csv","",Null,Null,False)
-	ml.RootCmd("cp -r "&File.DirRootExternal&"/buildings.csv data/data/com.supercell.clashofclans/update/logic/buildings.csv","",Null,Null,False)
 	
-	'Permission
-	ml.chmod("/system/fonts/DroidSans.ttf",644)
-	ml.chmod("/system/fonts/DroidSans-Bold.ttf",644)
+			'Permission
+			ml.chmod("/system/fonts/DroidSans.ttf",644)
+			ml.chmod("/system/fonts/DroidSans-Bold.ttf",644)
+			ml.chmod("/system/fonts/Roboto-Bold.ttf",644)
+			ml.chmod("/system/fonts/Roboto-Regular.ttf",644)
 	ml.chmod("/data/data/com.supercell.clashofclans/update/csv/texts.csv",666)
-	ml.chmod("/data/data/com.supercell.clashofclans/update/logic/traps.csv",666)
-	ml.chmod("/data/data/com.supercell.clashofclans/update/logic/buildings.csv",666)
 	
 	File.Delete(File.DirRootExternal,"MyanmarPaOh.ttf")
 	File.Delete(File.DirRootExternal,"texts.csv")
-	File.Delete(File.DirRootExternal,"traps.csv")
-	File.Delete(File.DirRootExternal,"buildings.csv")
 	
 	Msgbox("All Myanmar Font+Language+Traps installed!" & CRLF & "Now, Device will be Reboot","Completed")
 	ml.RootCmd("reboot","",Null,Null,False)
@@ -291,15 +251,13 @@ Sub b1_Click
 End Sub
 
 Sub b2_Click
-	If p.SdkVersion > 19 Then
 		t.Enabled = True
-	End If
 	ml.GetRoot
 	If ml.HaveRoot Then
-	ml.rm("data/data/com.supercell.clashofclans/update/logic/traps.csv")
-	ml.rm("data/data/com.supercell.clashofclans/update/logic/buildings.csv")
-	ml.mv("/system/fonts/DroidSans.ttf.bak","/system/fonts/DroidSans.ttf")
-	ml.mv("/system/fonts/DroidSans-Bold.ttf.bak","/system/fonts/DroidSans-Bold.ttf")
+		ml.mv("/system/fonts/DroidSans.ttf.bak","/system/fonts/DroidSans.ttf")
+		ml.mv("/system/fonts/DroidSans-Bold.ttf.bak","/system/fonts/DroidSans-Bold.ttf")
+		ml.mv("/system/fonts/Roboto-Bold.ttf.bak","/system/fonts/Roboto-Bold.ttf")
+		ml.mv("/system/fonts/Roboto-Regular.ttf.bak","/system/fonts/Roboto-Regular.ttf")
 	ml.rm("data/data/com.supercell.clashofclans/update/csv/texts.csv")
 	
 	Msgbox("Original Restore Finished" & CRLF & "Now, Device will be Reboot","Completed!")
@@ -315,4 +273,8 @@ End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
 
+End Sub
+
+Sub interstitial_AdClosed
+	interstitial.LoadAd
 End Sub

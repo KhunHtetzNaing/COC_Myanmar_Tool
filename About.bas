@@ -1,5 +1,5 @@
 ﻿Type=Activity
-Version=6.3
+Version=6.5
 ModulesStructureVersion=1
 B4A=true
 @EndOfDesignText@
@@ -24,24 +24,22 @@ Sub Globals
 	Dim lstOne As ListView 
 	Dim abg As BitmapDrawable
 	Dim Banner As AdView
-	Dim Interstitial As mwAdmobInterstitial
-	Dim ph As Phone
+	Dim Interstitial As InterstitialAd
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
-		If ph.SdkVersion > 19 Then
-	Interstitial.Initialize("interstitial","ca-app-pub-4173348573252986/6359500554")
-	Interstitial.LoadAd
+
+	Interstitial.Initialize("interstitial","ca-app-pub-4173348573252986/3801251754")
+	interstitial.LoadAd
 	
-	Banner.Initialize("banner","ca-app-pub-4173348573252986/3406034153")
+	banner.Initialize("banner","ca-app-pub-4173348573252986/8371052153")
 	Banner.LoadAd
-	Activity.AddView(Banner,0%x,90%y,100%x,10%y)
+	Activity.AddView(Banner,0%x,100%y - 50dip,100%x,50dip)
 	
 	t.Initialize("t",500)
 	t.Enabled = False
-	t1.Initialize("t1",15000)
+	t1.Initialize("t1",30000)
 	t1.Enabled = True
-	End If
 	
 	Activity.Title = "About"
 	abg.Initialize(LoadBitmap(File.DirAssets,"bg.jpg"))
@@ -78,7 +76,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	lstOne.AddSingleLine2 ("Zawgyi Font Developed By : Kyaw Swar Thwin",3)
 	lstOne.AddSingleLine2 ("Unicode Font Developed By : Khon Soe Zaw Thu",8)
 	lstOne.AddSingleLine2 ("App Developed By : Khun Htetz Naing",4)
-	lstOne.AddSingleLine2 ("Phone : +959776003982    ",6)
+	lstOne.AddSingleLine2 ("Website : www.HtetzNaing.com    ",6)
 	lstOne.AddSingleLine2 ("Facebook : www.facebook.com/Khun.Htetz.Naing   ", 7)
 	Activity.AddView ( lstOne, 30dip , 170dip , 100%x -  60dip, 242dip)
 	
@@ -96,25 +94,21 @@ Sub Activity_Create(FirstTime As Boolean)
 End Sub
 
 Sub share_Click
-	If ph.SdkVersion > 19 Then
 		t.Enabled = True
-	End If
-Dim ShareIt As Intent
-Dim copy As BClipboard
-copy.clrText
-copy.setText("COC မွာျမန္မာစာေရးခ်င္ဖတ္ခ်င္ပါသလား? ၊ COC ကိုျမန္မာဘာသာျဖင့္ အသုံးျပဳခ်င္ပါသလား? ရန္သူစခန္းေတြမွာသြားတိုက္တဲ့အခါ ေထာင္ေခ်ာက္ေတြ ဗုံးေတြ၊ Teslas ႀကိဳတင္ေတြ႕ျမင္ခ်င္ပါသလား? ဒါေတြအားလုံးကို #COC_Myanmar_Tool တစ္ခုတည္းနဲ႔တင္လုပ္ေဆာင္နိုင္ပါၿပီ။ Root ေဖာက္ထားတဲ့မည္သည့္ Android ဖုန္းမဆိုအထက္ပါလုပ္ေဆာင္ခ်က္ေတြကို #COC_Myanmar_Tool ကထည့္သြင္းေပးနိုင္ပါတယ္။ Play Store ကေနအလြယ္တကူေဒါင္းယူရရွိနိုင္ပါတယ္။ Download Free at Google Play Store: https://play.google.com/store/apps/details?id=com.htetznaing.cocmmtool သို႔မဟုတ္မိမိတို႔ဖုန္းထဲက App Store တခုခုကေနလည္း ေဒါင္းနိုင္ပါတယ္။ ေဒါင္းဖို႔အဆင္မေျပသူမ်ားကေတာ့ ဒီမွာ သြားေဒါင္းနိုင္ပါတယ္ > http://ht3tzn4ing.blogspot.com/2016/12/COCMyanmarTool.html <")
-    ShareIt.Initialize (ShareIt.ACTION_SEND,"")
-    ShareIt.SetType ("text/plain")
-    ShareIt.PutExtra ("android.intent.extra.TEXT",copy.getText)
-    ShareIt.PutExtra ("android.intent.extra.SUBJECT","#COC_Myanmar_Tool")
-    ShareIt.WrapAsIntentChooser("Share App Via...")
-StartActivity (ShareIt)
+	Dim ShareIt As Intent
+	Dim copy As BClipboard
+	copy.clrText
+	copy.setText("COC မွာျမန္မာစာေရးခ်င္ဖတ္ခ်င္ပါသလား? ၊ COC ကိုျမန္မာဘာသာျဖင့္ အသုံးျပဳခ်င္ပါသလား? ရန္သူစခန္းေတြမွာသြားတိုက္တဲ့အခါ ေထာင္ေခ်ာက္ေတြ ဗုံးေတြ၊ Teslas ႀကိဳတင္ေတြ႕ျမင္ခ်င္ပါသလား? ဒါေတြအားလုံးကို #COC_Myanmar_Tool တစ္ခုတည္းနဲ႔တင္လုပ္ေဆာင္နိုင္ပါၿပီ။ Root ေဖာက္ထားတဲ့မည္သည့္ Android ဖုန္းမဆိုအထက္ပါလုပ္ေဆာင္ခ်က္ေတြကို #COC_Myanmar_Tool ကထည့္သြင္းေပးနိုင္ပါတယ္။ Play Store ကေနအလြယ္တကူေဒါင္းယူရရွိနိုင္ပါတယ္။ Download Free at Google Play Store: https://play.google.com/store/apps/details?id=com.htetznaing.cocmmtool2 သို႔မဟုတ္မိမိတို႔ဖုန္းထဲက App Store တခုခုကေနလည္း ေဒါင္းနိုင္ပါတယ္။ ေဒါင္းဖို႔အဆင္မေျပသူမ်ားကေတာ့ ဒီမွာ သြားေဒါင္းနိုင္ပါတယ္ > http://www.htetznaing.com/COCMyanmarTool <")
+	ShareIt.Initialize (ShareIt.ACTION_SEND,"")
+	ShareIt.SetType ("text/plain")
+	ShareIt.PutExtra ("android.intent.extra.TEXT",copy.getText)
+	ShareIt.PutExtra ("android.intent.extra.SUBJECT","#COC_Myanmar_Tool")
+	ShareIt.WrapAsIntentChooser("Share App Via...")
+	StartActivity (ShareIt)
 End Sub
 
 Sub ct_Click
-		If ph.SdkVersion > 19 Then
 		t.Enabled = True
-	End If
 	Dim lis As List
 	Dim idd_int As Int
 	Dim idd As id
@@ -179,45 +173,29 @@ public void _onCreate() {
 #end if
 
  Sub t_Tick
-If	Interstitial.Status=Interstitial.Status_AdReadyToShow Then
-	Interstitial.Show
-	End If
-If Interstitial.Status=Interstitial.Status_Dismissed Then
-	Interstitial.Show	
-End If
+	If	Interstitial.Ready Then Interstitial.Show Else Interstitial.LoadAd
 t.Enabled = False
 End Sub
 
 Sub t1_Tick
-If	Interstitial.Status=Interstitial.Status_AdReadyToShow Then
-	Interstitial.Show
-	End If
-If Interstitial.Status=Interstitial.Status_Dismissed Then
-	Interstitial.Show	
-End If
-t1.Enabled = False
+	If	Interstitial.Ready Then Interstitial.Show Else Interstitial.LoadAd
 End Sub
 
  Sub imv_Click
- 		If ph.SdkVersion > 19 Then
 		t.Enabled = True
-	End If
  	StartActivity(p.OpenBrowser("https://www.facebook.com/Khun.Htetz.Naing/"))
 End Sub
 
 Sub lbname_Click
-		If ph.SdkVersion > 19 Then
 		t.Enabled = True
-	End If
  	StartActivity(p.OpenBrowser("https://play.google.com/store/apps/details?id=com.htetznaing.mmallsimregistration"))
 End Sub
 
 Sub lblCredit_Click
-		If ph.SdkVersion > 19 Then
 		t.Enabled = True
-	End If
 	StartActivity(p.OpenBrowser ("https://play.google.com/store/apps/details?id=com.htetznaing.mmallsimregistration"))
 End Sub
+
 Sub Activity_Resume
      
 End Sub
@@ -227,15 +205,15 @@ Sub Activity_Pause (UserClosed As Boolean)
 End Sub
 
 Sub lstOnes_ItemClick (Position As Int, Value As Object)
-		If ph.SdkVersion > 19 Then
 		t.Enabled = True
-		End If
      Select Value
 	 	Case 6
-Dim i As Intent
-i.Initialize(i.ACTION_VIEW, "tel:+959776003982")
-StartActivity(i)
+StartActivity(p.OpenBrowser("http://www.htetznaing.com"))
 	 			Case 7
-				   StartActivity(p.OpenBrowser ("https://www.facebook.com/Khun.Htetz.Naing/"))
+				   StartActivity(p.OpenBrowser ("https://www.facebook.com/MgHtetzNaing/"))
 	 End Select
+End Sub
+
+Sub interstitial_AdClosed
+	Interstitial.LoadAd
 End Sub
