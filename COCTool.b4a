@@ -1,10 +1,10 @@
-﻿Version=6.5
+﻿Version=6.8
 NumberOfModules=4
 Module1=Language
 Module2=Font
 Module3=AllinOne
 Module4=About
-Build1=Default,com.htetznaing.cocmmtoolnewv
+Build1=Default,com.htetznaing.cocmm2
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~'************ Google Play Services Base ************~\n~AddApplicationText(~\n~   <activity android:name="com.google.android.gms.common.api.GoogleApiActivity"~\n~  android:theme="@android:style/Theme.Translucent.NoTitleBar"~\n~  android:exported="false"/>~\n~    <meta-data~\n~  android:name="com.google.android.gms.version"~\n~  android:value="@integer/google_play_services_version" />~\n~)~\n~~\n~'************ Google Play Services Base (end) ************~\n~~\n~'************ Firebase Ads ************~\n~AddApplicationText(~\n~  <activity~\n~  android:name="com.google.android.gms.ads.AdActivity"~\n~  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"~\n~  android:theme="@android:style/Theme.Translucent" />~\n~  <activity android:name="com.google.android.gms.ads.purchase.InAppPurchaseActivity"~\n~  android:theme="@style/Theme.IAPTheme"/>~\n~)~\n~'************ Firebase Ads (end) ************
 IconFile=
 NumberOfFiles=23
@@ -44,7 +44,7 @@ Library8=firebaseadmob
 #Region  Project Attributes 
 	#ApplicationLabel: 4Coc Myanmar Font and Language
 	#VersionCode: 1
-	#VersionName: 1.6
+	#VersionName: 1.7
 	'SupportedOrientations possible values: unspecified, landscape or portrait.
 	#SupportedOrientations: unspecified
 	#CanInstallToExternalStorage: False
@@ -73,9 +73,6 @@ Dim lb As Label
 Dim banner As AdView
 Dim interstitial As InterstitialAd
 Dim p As Phone
-Dim wv As WebView
-Dim bstart As Button
-Dim bsbg As ColorDrawable
 Dim res As XmlLayoutBuilder
 End Sub
 
@@ -83,12 +80,19 @@ Sub Activity_Create(FirstTime As Boolean)
 	ml.GetRoot
 	Activity.Title = "COC MM Tool"
 	
-	interstitial.Initialize("interstitial","ca-app-pub-4173348573252986/3801251754")
+	interstitial.Initialize("interstitial","ca-app-pub-4173348573252986/1115991354")
 	interstitial.LoadAd
 	
-	banner.Initialize("banner","ca-app-pub-4173348573252986/8371052153")
+	banner.Initialize("banner","ca-app-pub-4173348573252986/8639258151")
+	Dim h As Int
+	If GetDeviceLayoutValues.ApproximateScreenSize < 6 Then
+		If 100%x > 100%y Then h = 32dip Else h = 50dip
+		Else
+			h = 90dip
+	End If
+		Activity.AddView(banner,0%x,0%y,100%x,h)
 	banner.LoadAd
-	Activity.AddView(banner,0%x,0%y,100%x,50dip)
+	Log(banner)
 	
 	t.Initialize("t",500)
 	t.Enabled = False
@@ -96,7 +100,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	t1.Enabled = True
 	
 	lb.Initialize("lb")
-	lb.Text = "Powered By Myanmar Android Apps"
+	lb.Text = "Developed By Myanmar Android App"
 	lb.Gravity = Gravity.CENTER
 	Activity.AddView(lb,0%x,95%y,100%x,5%y)
 	
@@ -130,32 +134,11 @@ Sub Activity_Create(FirstTime As Boolean)
 	Activity.AddMenuItem3("Share App","share",LoadBitmap(File.DirAssets,"share.png"),True)
 	Activity.AddMenuItem3("Change Themes","ct",LoadBitmap(File.DirAssets,"theme.png"),True)
 Activity.AddMenuItem3("About App","ab",LoadBitmap(File.DirAssets,"about.png"),True)
-
-If FirstTime Then
-	Dim wv As WebView
-	wv.Initialize("wv")
-	wv.LoadUrl("file:///android_asset/sp.html")
-	wv.Visible=True
-	wv.ZoomEnabled = False
 	
-	bsbg.Initialize(Colors.Blue,15)
-	bstart.Initialize("bstart")
-	bstart.Text = ">> Start >>"
-	bstart.Background = bsbg
-	Activity.AddView(wv,0%x,0%y,100%x,100%y)
-	Activity.AddView(bstart,60%x,87%y,35%x,8%y)
-	
-	b1.Visible = False
-	b2.Visible = False
-	b3.Visible = False
-	b5.Visible = False
-	End If
 End Sub
 
 Sub lb_Click
-	If p.SdkVersion > 19 Then
 		t.Enabled = True
-	End If
 	Try
  
 		Dim Facebook As Intent
@@ -171,16 +154,6 @@ Sub lb_Click
 		StartActivity(i)
  
 	End Try
-End Sub
-
-Sub bstart_Click
-		t.Enabled = True
-	wv.Visible = False
-	b1.Visible = True
-	b2.Visible = True
-	b3.Visible = True
-	b5.Visible = True
-	bstart.Visible = False
 End Sub
 
 Sub share_Click

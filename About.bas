@@ -1,5 +1,5 @@
 ﻿Type=Activity
-Version=6.5
+Version=6.8
 ModulesStructureVersion=1
 B4A=true
 @EndOfDesignText@
@@ -30,9 +30,9 @@ End Sub
 Sub Activity_Create(FirstTime As Boolean)
 
 	Interstitial.Initialize("interstitial","ca-app-pub-4173348573252986/3801251754")
-	interstitial.LoadAd
+	Interstitial.LoadAd
 	
-	banner.Initialize("banner","ca-app-pub-4173348573252986/8371052153")
+	Banner.Initialize("banner","ca-app-pub-4173348573252986/8371052153")
 	Banner.LoadAd
 	Activity.AddView(Banner,0%x,100%y - 50dip,100%x,50dip)
 	
@@ -76,8 +76,8 @@ Sub Activity_Create(FirstTime As Boolean)
 	lstOne.AddSingleLine2 ("Zawgyi Font Developed By : Kyaw Swar Thwin",3)
 	lstOne.AddSingleLine2 ("Unicode Font Developed By : Khon Soe Zaw Thu",8)
 	lstOne.AddSingleLine2 ("App Developed By : Khun Htetz Naing",4)
-	lstOne.AddSingleLine2 ("Website : www.HtetzNaing.com    ",6)
-	lstOne.AddSingleLine2 ("Facebook : www.facebook.com/Khun.Htetz.Naing   ", 7)
+	lstOne.AddSingleLine2 ("Website : www.MyanmarAndroidApp.com    ",6)
+	lstOne.AddSingleLine2 ("Facebook : www.facebook.com/MgHtetzNaing   ", 7)
 	Activity.AddView ( lstOne, 30dip , 170dip , 100%x -  60dip, 242dip)
 	
 	Dim lblCredit As Label 
@@ -182,18 +182,60 @@ Sub t1_Tick
 End Sub
 
  Sub imv_Click
-		t.Enabled = True
- 	StartActivity(p.OpenBrowser("https://www.facebook.com/Khun.Htetz.Naing/"))
+	t.Enabled = True
+	Try
+ 
+		Dim Facebook As Intent
+ 
+		Facebook.Initialize(Facebook.ACTION_VIEW, "fb://page/627699334104477")
+		StartActivity(Facebook)
+ 
+	Catch
+ 
+		Dim i As Intent
+		i.Initialize(i.ACTION_VIEW, "https://m.facebook.com/MmFreeAndroidApps")
+ 
+		StartActivity(i)
+ 
+	End Try
 End Sub
 
 Sub lbname_Click
-		t.Enabled = True
- 	StartActivity(p.OpenBrowser("https://play.google.com/store/apps/details?id=com.htetznaing.mmallsimregistration"))
+	t.Enabled = True
+	Try
+ 
+		Dim Facebook As Intent
+ 
+		Facebook.Initialize(Facebook.ACTION_VIEW, "fb://page/627699334104477")
+		StartActivity(Facebook)
+ 
+	Catch
+ 
+		Dim i As Intent
+		i.Initialize(i.ACTION_VIEW, "https://m.facebook.com/MmFreeAndroidApps")
+ 
+		StartActivity(i)
+ 
+	End Try
 End Sub
 
 Sub lblCredit_Click
-		t.Enabled = True
-	StartActivity(p.OpenBrowser ("https://play.google.com/store/apps/details?id=com.htetznaing.mmallsimregistration"))
+	t.Enabled = True
+	Try
+ 
+		Dim Facebook As Intent
+ 
+		Facebook.Initialize(Facebook.ACTION_VIEW, "fb://page/627699334104477")
+		StartActivity(Facebook)
+ 
+	Catch
+ 
+		Dim i As Intent
+		i.Initialize(i.ACTION_VIEW, "https://m.facebook.com/MmFreeAndroidApps")
+ 
+		StartActivity(i)
+ 
+	End Try
 End Sub
 
 Sub Activity_Resume
@@ -208,9 +250,17 @@ Sub lstOnes_ItemClick (Position As Int, Value As Object)
 		t.Enabled = True
      Select Value
 	 	Case 6
-StartActivity(p.OpenBrowser("http://www.htetznaing.com"))
-	 			Case 7
-				   StartActivity(p.OpenBrowser ("https://www.facebook.com/MgHtetzNaing/"))
+StartActivity(p.OpenBrowser("http://www.MyanmarAndroidApp.com"))
+		Case 7
+			Try
+				Dim Facebook As Intent
+				Facebook.Initialize(Facebook.ACTION_VIEW, "fb://profile/100006126339714")
+				StartActivity(Facebook)
+			Catch
+				Dim Facebook As Intent
+				Facebook.Initialize(Facebook.ACTION_VIEW, "https://m.facebook.com/MgHtetzNaing")
+				StartActivity(Facebook)
+			End Try
 	 End Select
 End Sub
 
